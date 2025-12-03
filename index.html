@@ -1,163 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GlobalVidHub</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Poppins, sans-serif;
-            background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d);
-            color: white;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GlobalVidHub</title>
+<style>
+body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d);
+    color: white;
+}
 
-        /* HEADER */
-        header {
-            width: 100%;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-        }
+/* HEADER */
+header {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    z-index: 1000;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #00aaff;
-        }
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00aaff;
+}
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-        }
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
 
-        nav a:hover {
-            color: #00aaff;
-        }
+nav a:hover {
+    color: #00aaff;
+}
 
-        /* SECTIONS */
-        section {
-            padding: 60px 50px;
-        }
+/* SECTIONS */
+section {
+    padding: 60px 50px;
+}
 
-        h2 {
-            font-size: 32px;
-            margin-bottom: 25px;
-            border-left: 5px solid #00aaff;
-            padding-left: 10px;
-        }
+h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    border-left: 5px solid #00aaff;
+    padding-left: 10px;
+}
 
-        /* VIDEO GRID */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+/* VIDEO GRID */
+.feature-video {
+    width: 100%;
+    height: 400px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
 
-        iframe {
-            width: 100%;
-            height: 220px;
-            border-radius: 10px;
-            border: none;
-        }
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
 
-        /* DARK/LIGHT MODE */
-        .dark-mode { background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d); color: white; }
-        .light-mode { background: #f5f5f5; color: #222; }
+iframe {
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    border: none;
+}
 
-        .mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+/* DARK/LIGHT MODE */
+.dark-mode { background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d); color: white; }
+.light-mode { background: #f5f5f5; color: #222; }
 
-    </style>
+.mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background: #00aaff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
 </head>
 <body class="dark-mode">
 
-    <button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
+<button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo">GlobalVidHub</div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#youtube">YouTube Videos</a>
-            <a href="#tiktok">TikTok Videos</a>
-            <a href="#instagram">Instagram Videos</a>
-        </nav>
-    </header>
+<header>
+    <div class="logo">GlobalVidHub</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#youtube">YouTube Videos</a>
+        <a href="#tiktok">TikTok Videos</a>
+        <a href="#instagram">Instagram Videos</a>
+    </nav>
+</header>
 
-    <!-- HOME -->
-    <section id="home">
-        <h2>Welcome to GlobalVidHub</h2>
-        <p>Your daily hub for trending videos across YouTube, TikTok, and Instagram.</p>
-    </section>
+<!-- HOME -->
+<section id="home">
+    <h2>Welcome to GlobalVidHub</h2>
+    <p>Your daily hub for trending videos across YouTube, TikTok, and Instagram.</p>
+</section>
 
-    <!-- YOUTUBE TRAVEL VLOGS -->
-    <section id="youtube">
-        <h2>Top Travel Vlogs</h2>
-        <div class="video-grid">
-            <iframe width="713" height="401" src="https://www.youtube.com/embed/QYA7Jy8Z0lA" title="How to Make Travel Videos for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/r9cqpcy6IwE" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/lcK3GUrt7Ww" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/RNRkN0wS0VI" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/L9c1HcpIcHc" allowfullscreen></iframe>
-            <iframe src="https://www.youtube.com/embed/0VDK7tLYsGY" allowfullscreen></iframe>
-        </div>
-    </section>
+<!-- YOUTUBE FEATURE -->
+<section id="youtube">
+    <h2>YouTube</h2>
+    <!-- FEATURED VIDEO -->
+    <iframe class="feature-video" src="https://www.youtube.com/embed/0t1_u7Y30i0" allowfullscreen></iframe>
+    
+    <!-- SMALL VIDEOS GRID -->
+    <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/r9cqpcy6IwE" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/lcK3GUrt7Ww" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/RNRkN0wS0VI" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/L9c1HcpIcHc" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/0VDK7tLYsGY" allowfullscreen></iframe>
+    </div>
+</section>
 
-    <!-- TIKTOK VIDEOS -->
-    <section id="tiktok">
-        <h2>Trending TikTok Videos</h2>
-        <div class="video-grid">
-            <iframe src="https://www.tiktok.com/embed/7208949120347599365" allowfullscreen></iframe>
-            <iframe src="https://www.tiktok.com/embed/7210149738455294470" allowfullscreen></iframe>
-            <iframe src="https://www.tiktok.com/embed/7207845912345678901" allowfullscreen></iframe>
-        </div>
-    </section>
+<!-- TIKTOK VIDEOS -->
+<section id="tiktok">
+    <h2>Trending TikTok Videos</h2>
+    <div class="video-grid">
+        <iframe src="https://www.tiktok.com/embed/7208949120347599365" allowfullscreen></iframe>
+        <iframe src="https://www.tiktok.com/embed/7210149738455294470" allowfullscreen></iframe>
+        <iframe src="https://www.tiktok.com/embed/7207845912345678901" allowfullscreen></iframe>
+    </div>
+</section>
 
-    <!-- INSTAGRAM VIDEOS -->
-    <section id="instagram">
-        <h2>Popular Instagram Videos</h2>
-        <div class="video-grid">
-            <iframe src="https://www.instagram.com/p/CFB12345678/embed" allowfullscreen></iframe>
-            <iframe src="https://www.instagram.com/p/CFB87654321/embed" allowfullscreen></iframe>
-            <iframe src="https://www.instagram.com/p/CFB11223344/embed" allowfullscreen></iframe>
-        </div>
-    </section>
+<!-- INSTAGRAM VIDEOS -->
+<section id="instagram">
+    <h2>Popular Instagram Videos</h2>
+    <div class="video-grid">
+        <iframe src="https://www.instagram.com/p/CFB12345678/embed" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/CFB87654321/embed" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/CFB11223344/embed" allowfullscreen></iframe>
+    </div>
+</section>
 
-    <script>
-        function toggleMode() {
-            const body = document.body;
-            if(body.classList.contains('dark-mode')){
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-            } else {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-            }
-        }
-    </script>
+<script>
+function toggleMode() {
+    const body = document.body;
+    if(body.classList.contains('dark-mode')){
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+    } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+    }
+}
+</script>
 
 </body>
 </html>
