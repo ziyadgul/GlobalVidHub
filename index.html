@@ -24,7 +24,7 @@ header {
 .nav-container {
   display:flex;
   align-items:center;
-  gap:30px; /* space between logo and nav links */
+  gap:30px;
 }
 .logo { font-size:24px; font-weight:bold; color:#00aaff; }
 nav { display:flex; gap:20px; }
@@ -40,12 +40,13 @@ section { padding:40px 20px; }
 h2 { font-size:28px; margin-bottom:20px; border-left:5px solid #00aaff; padding-left:10px; }
 
 /* Featured video */
-.feature-video { width:100%; border-radius:12px; margin-bottom:20px; height:300px; }
+.feature-video { width:100%; border-radius:12px; margin-bottom:20px; height:300px; display:flex; justify-content:center; }
 
 /* Video grids */
-.video-grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; }
-.video-wrapper { flex:1 1 280px; max-width:305px; display:flex; justify-content:center; }
-.video-wrapper iframe, .video-wrapper blockquote { width:100% !important; border-radius:10px; }
+.video-grid { display:flex; flex-direction:column; gap:20px; align-items:center; }
+.video-wrapper { width:100%; max-width:605px; display:flex; justify-content:center; }
+.video-wrapper iframe,
+.video-wrapper blockquote { width:100% !important; border-radius:10px; }
 
 /* Footer */
 footer { background:rgba(0,0,0,0.7); padding:20px; text-align:center; border-top:1px solid rgba(255,255,255,0.1); margin-top:40px; }
@@ -74,9 +75,7 @@ footer p { color:#99ccff; }
       <a href="#instagram">Instagram</a>
     </nav>
   </div>
-  <div class="nav-toggle" onclick="toggleNav()">
-    <div></div><div></div><div></div>
-  </div>
+  <div class="nav-toggle" onclick="toggleNav()"><div></div><div></div><div></div></div>
 </header>
 
 <section id="home">
@@ -117,7 +116,7 @@ footer p { color:#99ccff; }
 function toggleNav(){ document.getElementById('navbar').classList.toggle('show'); }
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Render videos from JSON
+// Render videos dynamically
 function renderVideos(containerId, videos, type){
   const container = document.getElementById(containerId);
   videos.forEach(embed=>{
@@ -130,20 +129,26 @@ function renderVideos(containerId, videos, type){
   if(type==="instagram" && window.instgrm) window.instgrm.Embeds.process();
 }
 
-// Fetch JSON files
-fetch('youtube-videos.json').then(r=>r.json()).then(v=>{
-  if(v.length>0) document.getElementById('youtube-feature').innerHTML = `<iframe src="${v[0]}" allowfullscreen></iframe>`;
-  renderVideos("youtube-grid", v.slice(1).map(url=>`<iframe src="${url}" allowfullscreen></iframe>`));
-});
+// YouTube API (most viewed videos)
+const YT_API_KEY = 'YOUR_YOUTUBE_API_KEY'; // replace with your key
+fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=15&regionCode=US&key=${YT_API_KEY}`)
+  .then(res=>res.json())
+  .then(data=>{
+    const vids = data.items.map(v=>`<iframe src="https://www.youtube.com/embed/${v.id}" allowfullscreen></iframe>`);
+    if(vids.length>0) document.getElementById('youtube-feature').innerHTML = vids[0];
+    renderVideos('youtube-grid', vids.slice(1));
+  });
 
+// TikTok JSON
 fetch('tiktok-videos.json').then(r=>r.json()).then(v=>{
   if(v.length>0) document.getElementById('tiktok-feature').innerHTML = v[0];
-  renderVideos("tiktok-grid", v.slice(1), "tiktok");
+  renderVideos('tiktok-grid', v.slice(1), 'tiktok');
 });
 
+// Instagram JSON
 fetch('instagram-videos.json').then(r=>r.json()).then(v=>{
   if(v.length>0) document.getElementById('instagram-feature').innerHTML = v[0];
-  renderVideos("instagram-grid", v.slice(1), "instagram");
+  renderVideos('instagram-grid', v.slice(1), 'instagram');
 });
 </script>
 
