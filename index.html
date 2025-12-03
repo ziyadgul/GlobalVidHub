@@ -21,8 +21,13 @@ header {
   top:0;
   z-index:1000;
 }
+.nav-container {
+  display:flex;
+  align-items:center;
+  gap:30px; /* space between logo and nav links */
+}
 .logo { font-size:24px; font-weight:bold; color:#00aaff; }
-nav { display:flex; gap:20px; align-items:center; }
+nav { display:flex; gap:20px; }
 nav a { text-decoration:none; color:white; font-weight:500; }
 nav a:hover { color:#00aaff; }
 
@@ -46,28 +51,32 @@ h2 { font-size:28px; margin-bottom:20px; border-left:5px solid #00aaff; padding-
 footer { background:rgba(0,0,0,0.7); padding:20px; text-align:center; border-top:1px solid rgba(255,255,255,0.1); margin-top:40px; }
 footer p { color:#99ccff; }
 
-/* Mobile Styles */
+/* MOBILE STYLES */
 @media(max-width:768px){
-  nav{display:none; flex-direction:column; background:rgba(0,0,0,0.9); position:absolute; top:60px; right:0; width:200px; padding:15px; border-radius:8px;}
-  nav.show{display:flex;}
-  .nav-toggle{display:flex;}
-  h2{font-size:24px;}
-  .feature-video{height:200px;}
-  .video-wrapper{max-width:100%;}
+  nav{ display:none; flex-direction:column; background:rgba(0,0,0,0.9); position:absolute; top:60px; right:0; width:200px; padding:15px; border-radius:8px; }
+  nav.show{ display:flex; }
+  .nav-toggle{ display:flex; }
+  h2{ font-size:24px; }
+  .feature-video{ height:200px; }
+  .video-wrapper{ max-width:100%; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">GlobalVidHub</div>
-  <div class="nav-toggle" onclick="toggleNav()"><div></div><div></div><div></div></div>
-  <nav id="navbar">
-    <a href="#home">Home</a>
-    <a href="#youtube">YouTube</a>
-    <a href="#tiktok">TikTok</a>
-    <a href="#instagram">Instagram</a>
-  </nav>
+  <div class="nav-container">
+    <div class="logo">GlobalVidHub</div>
+    <nav id="navbar">
+      <a href="#home">Home</a>
+      <a href="#youtube">YouTube</a>
+      <a href="#tiktok">TikTok</a>
+      <a href="#instagram">Instagram</a>
+    </nav>
+  </div>
+  <div class="nav-toggle" onclick="toggleNav()">
+    <div></div><div></div><div></div>
+  </div>
 </header>
 
 <section id="home">
@@ -104,14 +113,14 @@ footer p { color:#99ccff; }
 <script async src="https://www.instagram.com/embed.js"></script>
 
 <script>
-// Mobile nav toggle
+// Navbar toggle
 function toggleNav(){ document.getElementById('navbar').classList.toggle('show'); }
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Function to render videos from JSON
+// Render videos from JSON
 function renderVideos(containerId, videos, type){
   const container = document.getElementById(containerId);
-  videos.forEach((embed, i)=>{
+  videos.forEach(embed=>{
     const wrapper = document.createElement('div');
     wrapper.className = "video-wrapper";
     wrapper.innerHTML = embed;
@@ -121,7 +130,7 @@ function renderVideos(containerId, videos, type){
   if(type==="instagram" && window.instgrm) window.instgrm.Embeds.process();
 }
 
-// Load JSON files
+// Fetch JSON files
 fetch('youtube-videos.json').then(r=>r.json()).then(v=>{
   if(v.length>0) document.getElementById('youtube-feature').innerHTML = `<iframe src="${v[0]}" allowfullscreen></iframe>`;
   renderVideos("youtube-grid", v.slice(1).map(url=>`<iframe src="${url}" allowfullscreen></iframe>`));
