@@ -22,9 +22,11 @@ header {
     z-index: 1000;
 }
 .logo { font-size: 24px; font-weight: bold; color: #00aaff; }
-nav { display: flex; gap: 15px; }
+nav { display: flex; gap: 20px; }
 nav a { text-decoration: none; color: white; font-weight: 500; }
 nav a:hover { color: #00aaff; }
+
+/* Mobile nav toggle */
 .nav-toggle { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
 .nav-toggle div { width: 25px; height: 3px; background: white; }
 
@@ -35,9 +37,14 @@ h2 { font-size: 28px; margin-bottom: 20px; border-left: 5px solid #00aaff; paddi
 /* Featured video */
 .feature-video { width: 100%; border-radius: 12px; margin-bottom: 20px; height: 300px; }
 
-/* Small video grids */
+/* Video grids */
 .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+.video-grid > div { display: block; margin-bottom: 15px; } /* fixes overlap */
 iframe, .video-grid blockquote { width: 100%; border-radius: 10px; }
+
+/* Footer */
+footer { background: rgba(0,0,0,0.7); padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; }
+footer p { color: #99ccff; }
 
 /* MOBILE STYLES ONLY */
 @media (max-width: 768px) {
@@ -48,10 +55,6 @@ iframe, .video-grid blockquote { width: 100%; border-radius: 10px; }
     .feature-video { height: 200px; }
     .video-grid { grid-template-columns: 1fr; }
 }
-
-/* Footer */
-footer { background: rgba(0,0,0,0.7); padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; }
-footer p { color: #99ccff; }
 </style>
 </head>
 <body>
@@ -113,7 +116,7 @@ function toggleNav() { document.getElementById('navbar').classList.toggle('show'
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Featured TikTok
-document.getElementById('tiktok-feature').innerHTML = "<blockquote class='tiktok-embed' cite='https://www.tiktok.com/@i.meed..money/video/7547346870369111316' data-video-id='7547346870369111316' style='max-width: 605px;min-width: 325px;'><section><a target='_blank' title='@i.meed..money' href='https://www.tiktok.com/@i.meed..money?refer=embed'>@i.meed..money</a> <p></p> <a target='_blank' title='♬ sonido original - Rine Lucia' href='https://www.tiktok.com/music/sonido-original-7378904931535473424?refer=embed'>♬ sonido original - Rine Lucia</a></section></blockquote>";
+document.getElementById('tiktok-feature').innerHTML = "<div><blockquote class='tiktok-embed' cite='https://www.tiktok.com/@i.meed..money/video/7547346870369111316' data-video-id='7547346870369111316' style='margin:auto; max-width:605px; min-width:325px;'><section><a target='_blank' title='@i.meed..money' href='https://www.tiktok.com/@i.meed..money?refer=embed'>@i.meed..money</a><p></p><a target='_blank' title='♬ sonido original - Rine Lucia' href='https://www.tiktok.com/music/sonido-original-7378904931535473424?refer=embed'>♬ sonido original - Rine Lucia</a></section></blockquote></div>";
 if(window.tiktokEmbedInit) window.tiktokEmbedInit();
 
 // TikTok grid videos
@@ -121,12 +124,16 @@ fetch('tiktok-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('tiktok-grid');
-    videos.forEach(embedHtml => { const div = document.createElement('div'); div.innerHTML = embedHtml; container.appendChild(div); });
+    videos.forEach(embedHtml => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = embedHtml;
+        container.appendChild(wrapper);
+    });
     if(window.tiktokEmbedInit) window.tiktokEmbedInit();
   });
 
 // Featured Instagram
-document.getElementById('instagram-feature').innerHTML = "<blockquote class='instagram-media' data-instgrm-permalink='https://www.instagram.com/p/CFB12345678/' data-instgrm-version='14' style='background:#FFF; margin:1px; max-width:540px; width:100%;'></blockquote>";
+document.getElementById('instagram-feature').innerHTML = "<div><blockquote class='instagram-media' data-instgrm-permalink='https://www.instagram.com/p/CFB12345678/' data-instgrm-version='14' style='margin:auto; max-width:540px; width:100%;'></blockquote></div>";
 if(window.instgrm) window.instgrm.Embeds.process();
 
 // Instagram grid videos
@@ -134,7 +141,11 @@ fetch('instagram-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('instagram-grid');
-    videos.forEach(embedHtml => { const div = document.createElement('div'); div.innerHTML = embedHtml; container.appendChild(div); });
+    videos.forEach(embedHtml => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = embedHtml;
+        container.appendChild(wrapper);
+    });
     if(window.instgrm) window.instgrm.Embeds.process();
   });
 </script>
