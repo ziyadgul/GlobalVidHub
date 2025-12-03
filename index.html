@@ -118,10 +118,7 @@ iframe {
 <!-- YOUTUBE FEATURE -->
 <section id="youtube">
     <h2>YouTube</h2>
-    <!-- FEATURED VIDEO -->
     <iframe class="feature-video" src="https://www.youtube.com/embed/0t1_u7Y30i0" allowfullscreen></iframe>
-    
-    <!-- SMALL VIDEOS GRID -->
     <div class="video-grid">
         <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
@@ -147,8 +144,9 @@ iframe {
     <div class="video-grid" id="instagram-grid"></div>
 </section>
 
-<script src="https://www.tiktok.com/embed.js" async></script>
-<script src="https://www.instagram.com/embed.js"></script>
+<!-- SCRIPTS -->
+<script async src="https://www.tiktok.com/embed.js"></script>
+<script async src="https://www.instagram.com/embed.js"></script>
 <script>
 function toggleMode() {
     const body = document.body;
@@ -184,6 +182,7 @@ fetch('instagram-videos.json')
       div.innerHTML = embedHtml;
       container.appendChild(div);
     });
+    if (window.instgrm) window.instgrm.Embeds.process();
   });
 </script>
 
