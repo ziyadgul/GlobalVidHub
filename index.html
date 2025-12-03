@@ -40,13 +40,29 @@ section { padding:40px 20px; }
 h2 { font-size:28px; margin-bottom:20px; border-left:5px solid #00aaff; padding-left:10px; }
 
 /* Featured video */
-.feature-video { width:100%; border-radius:12px; margin-bottom:20px; height:300px; display:flex; justify-content:center; }
+.feature-video { width:100%; border-radius:12px; margin-bottom:20px; display:flex; justify-content:center; height:300px; }
 
-/* Video grids */
-.video-grid { display:flex; flex-direction:column; gap:20px; align-items:center; }
+/* Video carousel for TikTok & Instagram */
+.video-carousel {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+.video-carousel button {
+  background:#00aaff;
+  color:#fff;
+  border:none;
+  padding:10px 15px;
+  border-radius:6px;
+  cursor:pointer;
+}
 .video-wrapper { width:100%; max-width:605px; display:flex; justify-content:center; }
-.video-wrapper iframe,
-.video-wrapper blockquote { width:100% !important; border-radius:10px; }
+.video-wrapper iframe, .video-wrapper blockquote { width:100% !important; border-radius:10px; }
+
+/* Video grid for YouTube */
+.video-grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; }
 
 /* Footer */
 footer { background:rgba(0,0,0,0.7); padding:20px; text-align:center; border-top:1px solid rgba(255,255,255,0.1); margin-top:40px; }
@@ -93,15 +109,21 @@ footer p { color:#99ccff; }
 <!-- TikTok Section -->
 <section id="tiktok">
   <h2>Trending TikTok Videos</h2>
-  <div id="tiktok-feature" class="feature-video"></div>
-  <div class="video-grid" id="tiktok-grid"></div>
+  <div class="video-carousel">
+    <button onclick="prevVideo('tiktok')">◀</button>
+    <div id="tiktok-current" class="video-wrapper"></div>
+    <button onclick="nextVideo('tiktok')">▶</button>
+  </div>
 </section>
 
 <!-- Instagram Section -->
 <section id="instagram">
   <h2>Popular Instagram Videos</h2>
-  <div id="instagram-feature" class="feature-video"></div>
-  <div class="video-grid" id="instagram-grid"></div>
+  <div class="video-carousel">
+    <button onclick="prevVideo('instagram')">◀</button>
+    <div id="instagram-current" class="video-wrapper"></div>
+    <button onclick="nextVideo('instagram')">▶</button>
+  </div>
 </section>
 
 <footer>
@@ -116,40 +138,56 @@ footer p { color:#99ccff; }
 function toggleNav(){ document.getElementById('navbar').classList.toggle('show'); }
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Render videos dynamically
-function renderVideos(containerId, videos, type){
-  const container = document.getElementById(containerId);
-  videos.forEach(embed=>{
-    const wrapper = document.createElement('div');
-    wrapper.className = "video-wrapper";
-    wrapper.innerHTML = embed;
-    container.appendChild(wrapper);
-  });
-  if(type==="tiktok" && window.tiktokEmbedInit) window.tiktokEmbedInit();
-  if(type==="instagram" && window.instgrm) window.instgrm.Embeds.process();
+// Carousel setup
+let tiktokVideos = [];
+let instagramVideos = [];
+let currentIndex = {tiktok:0, instagram:0};
+
+function renderCurrentVideo(platform){
+  const container = document.getElementById(platform+'-current');
+  const index = currentIndex[platform];
+  const embed = platform==='tiktok'? tiktokVideos[index] : instagramVideos[index];
+  container.innerHTML = embed;
+  if(platform==='tiktok' && window.tiktokEmbedInit) window.tiktokEmbedInit();
+  if(platform==='instagram' && window.instgrm) window.instgrm.Embeds.process();
+}
+function nextVideo(platform){
+  const arr = platform==='tiktok'? tiktokVideos : instagramVideos;
+  currentIndex[platform] = (currentIndex[platform]+1)%arr.length;
+  renderCurrentVideo(platform);
+}
+function prevVideo(platform){
+  const arr = platform==='tiktok'? tiktokVideos : instagramVideos;
+  currentIndex[platform] = (currentIndex[platform]-1+arr.length)%arr.length;
+  renderCurrentVideo(platform);
 }
 
-// YouTube API (most viewed videos)
+// Load JSON files
+fetch('tiktok-videos.json').then(r=>r.json()).then(v=>{
+  tiktokVideos = v;
+  if(v.length>0) renderCurrentVideo('tiktok');
+});
+
+fetch('instagram-videos.json').then(r=>r.json()).then(v=>{
+  instagramVideos = v;
+  if(v.length>0) renderCurrentVideo('instagram');
+});
+
+// YouTube API (most viewed)
 const YT_API_KEY = 'YOUR_YOUTUBE_API_KEY'; // replace with your key
 fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=15&regionCode=US&key=${YT_API_KEY}`)
   .then(res=>res.json())
   .then(data=>{
     const vids = data.items.map(v=>`<iframe src="https://www.youtube.com/embed/${v.id}" allowfullscreen></iframe>`);
     if(vids.length>0) document.getElementById('youtube-feature').innerHTML = vids[0];
-    renderVideos('youtube-grid', vids.slice(1));
+    const gridContainer = document.getElementById('youtube-grid');
+    vids.slice(1).forEach(embed=>{
+      const wrapper = document.createElement('div');
+      wrapper.className = 'video-wrapper';
+      wrapper.innerHTML = embed;
+      gridContainer.appendChild(wrapper);
+    });
   });
-
-// TikTok JSON
-fetch('tiktok-videos.json').then(r=>r.json()).then(v=>{
-  if(v.length>0) document.getElementById('tiktok-feature').innerHTML = v[0];
-  renderVideos('tiktok-grid', v.slice(1), 'tiktok');
-});
-
-// Instagram JSON
-fetch('instagram-videos.json').then(r=>r.json()).then(v=>{
-  if(v.length>0) document.getElementById('instagram-feature').innerHTML = v[0];
-  renderVideos('instagram-grid', v.slice(1), 'instagram');
-});
 </script>
 
 </body>
