@@ -147,6 +147,8 @@ iframe {
     <div class="video-grid" id="instagram-grid"></div>
 </section>
 
+<script src="https://www.tiktok.com/embed.js" async></script>
+<script src="https://www.instagram.com/embed.js"></script>
 <script>
 function toggleMode() {
     const body = document.body;
@@ -159,29 +161,28 @@ function toggleMode() {
     }
 }
 
-// Load TikTok videos from JSON
+// Load TikTok embeds dynamically
 fetch('tiktok-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('tiktok-grid');
-    videos.forEach(url => {
-      const iframe = document.createElement('iframe');
-      iframe.src = url;
-      iframe.allowFullscreen = true;
-      container.appendChild(iframe);
+    videos.forEach(embedHtml => {
+      const div = document.createElement('div');
+      div.innerHTML = embedHtml;
+      container.appendChild(div);
     });
+    if (window.tiktokEmbedInit) window.tiktokEmbedInit();
   });
 
-// Load Instagram videos from JSON
+// Load Instagram embeds dynamically
 fetch('instagram-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('instagram-grid');
-    videos.forEach(url => {
-      const iframe = document.createElement('iframe');
-      iframe.src = url;
-      iframe.allowFullscreen = true;
-      container.appendChild(iframe);
+    videos.forEach(embedHtml => {
+      const div = document.createElement('div');
+      div.innerHTML = embedHtml;
+      container.appendChild(div);
     });
   });
 </script>
