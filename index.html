@@ -3,125 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Store Style Gallery</title>
+  <title>GlobalVidHub</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      color: #333;
-    }
-
-    header {
-      background: #111;
+      background: #0d0d0d;
       color: #fff;
-      padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      letter-spacing: 1px;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      grid-gap: 25px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.25s;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-    }
-
-    .thumb {
+    /* NAVBAR */
+    .navbar {
       width: 100%;
-      height: 160px;
-      background: #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: #444;
-    }
-
-    .content {
-      padding: 15px;
-    }
-
-    .title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .btn {
-      margin-top: 10px;
-      padding: 10px 15px;
       background: #111;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #333;
+    }
+
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00aaff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
       color: #fff;
       text-decoration: none;
-      border-radius: 8px;
-      font-size: 14px;
+      font-size: 16px;
+    }
+
+    /* DROPDOWN */
+    .dropdown {
+      position: relative;
       display: inline-block;
     }
 
-    .btn:hover {
+    .dropdown-btn {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #1a1a1a;
+      min-width: 150px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
       background: #333;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* VIDEO GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .video-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+
+    .video-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0,150,255,0.5);
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .video-card .title {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-<header>My Video Store</header>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">GlobalVidHub</div>
 
-<div class="container">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="videos.html">Videos</a>
 
-  <!-- CARD 1 -->
-  <div class="card">
-    <div class="thumb">Thumbnail</div>
-    <div class="content">
-      <div class="title">Video Title 1</div>
-      <a class="btn" href="#">Watch Video</a>
+      <div class="dropdown">
+        <span class="dropdown-btn">Social Media ▾</span>
+        <div class="dropdown-content">
+          <a href="https://instagram.com" target="_blank">Instagram</a>
+          <a href="https://youtube.com" target="_blank">YouTube</a>
+          <a href="https://tiktok.com" target="_blank">TikTok</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- CARD 2 -->
-  <div class="card">
-    <div class="thumb">Thumbnail</div>
-    <div class="content">
-      <div class="title">Video Title 2</div>
-      <a class="btn" href="#">Watch Video</a>
+  <!-- MAIN VIDEO GRID -->
+  <section class="grid">
+    <div class="video-card">
+      <img src="https://via.placeholder.com/400x250" />
+      <div class="title">Sample Video 1</div>
     </div>
-  </div>
 
-  <!-- CARD 3 -->
-  <div class="card">
-    <div class="thumb">Thumbnail</div>
-    <div class="content">
-      <div class="title">Video Title 3</div>
-      <a class="btn" href="#">Watch Video</a>
+    <div class="video-card">
+      <img src="https://via.placeholder.com/400x250" />
+      <div class="title">Sample Video 2</div>
     </div>
-  </div>
 
-  <!-- CARD 4 -->
-  <div class="card">
-    <div class="thumb">Thumbnail</div>
-    <div class="content">
-      <div class="title">Video Title 4</div>
-      <a class="btn" href="#">Watch Video</a>
+    <div class="video-card">
+      <img src="https://via.placeholder.com/400x250" />
+      <div class="title">Sample Video 3</div>
     </div>
-  </div>
 
-</div>
+    <div class="video-card">
+      <img src="https://via.placeholder.com/400x250" />
+      <div class="title">Sample Video 4</div>
+    </div>
+  </section>
 
 </body>
 </html>
