@@ -182,6 +182,7 @@ fetch('instagram-videos.json')
       div.innerHTML = embedHtml;
       container.appendChild(div);
     });
+    // Important: initialize Instagram embeds after adding them
     if (window.instgrm) window.instgrm.Embeds.process();
   });
 </script>
