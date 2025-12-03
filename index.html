@@ -38,9 +38,22 @@ h2 { font-size: 28px; margin-bottom: 20px; border-left: 5px solid #00aaff; paddi
 .feature-video { width: 100%; border-radius: 12px; margin-bottom: 20px; height: 300px; }
 
 /* Video grids */
-.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-.video-grid > div { display: block; margin-bottom: 15px; }
-iframe, .video-grid blockquote { width: 100%; border-radius: 10px; }
+.video-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.video-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.video-wrapper blockquote, .video-wrapper iframe {
+  width: 100% !important;
+  max-width: 605px;
+  min-width: 325px;
+  border-radius: 10px;
+}
 
 /* Footer */
 footer { background: rgba(0,0,0,0.7); padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; }
@@ -53,7 +66,6 @@ footer p { color: #99ccff; }
     .nav-toggle { display: flex; }
     h2 { font-size: 24px; }
     .feature-video { height: 200px; }
-    .video-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -80,24 +92,22 @@ footer p { color: #99ccff; }
     <h2>YouTube Videos</h2>
     <iframe class="feature-video" src="https://www.youtube.com/embed/0t1_u7Y30i0" allowfullscreen></iframe>
     <div class="video-grid">
-        <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe></div>
     </div>
 </section>
 
 <!-- TikTok Section -->
 <section id="tiktok">
     <h2>Trending TikTok Videos</h2>
-    <div class="feature-video" id="tiktok-feature"></div>
     <div class="video-grid" id="tiktok-grid"></div>
 </section>
 
 <!-- Instagram Section -->
 <section id="instagram">
     <h2>Popular Instagram Videos</h2>
-    <div class="feature-video" id="instagram-feature"></div>
     <div class="video-grid" id="instagram-grid"></div>
 </section>
 
@@ -115,39 +125,30 @@ function toggleNav() { document.getElementById('navbar').classList.toggle('show'
 // Set current year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Featured TikTok
-document.getElementById('tiktok-feature').innerHTML = "<div><blockquote class='tiktok-embed' cite='https://www.tiktok.com/@i.meed..money/video/7547346870369111316' data-video-id='7547346870369111316' style='margin:auto; max-width:605px; min-width:325px;'><section><a target='_blank' title='@i.meed..money' href='https://www.tiktok.com/@i.meed..money?refer=embed'>@i.meed..money</a><p></p><a target='_blank' title='♬ sonido original - Rine Lucia' href='https://www.tiktok.com/music/sonido-original-7378904931535473424?refer=embed'>♬ sonido original - Rine Lucia</a></section></blockquote></div>";
-if(window.tiktokEmbedInit) window.tiktokEmbedInit();
-
-// TikTok grid videos
-fetch('tiktok-videos.json')
-  .then(res => res.json())
-  .then(videos => {
-    const container = document.getElementById('tiktok-grid');
-    videos.forEach(embedHtml => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = embedHtml;
-        container.appendChild(wrapper);
-    });
-    if(window.tiktokEmbedInit) window.tiktokEmbedInit();
+// Helper to render videos
+function renderVideos(containerId, videos, type){
+  const container = document.getElementById(containerId);
+  videos.forEach(embed => {
+    const wrapper = document.createElement('div');
+    wrapper.className = "video-wrapper";
+    wrapper.innerHTML = embed;
+    container.appendChild(wrapper);
   });
+  if(type === "tiktok" && window.tiktokEmbedInit) window.tiktokEmbedInit();
+  if(type === "instagram" && window.instgrm) window.instgrm.Embeds.process();
+}
 
-// Featured Instagram
-document.getElementById('instagram-feature').innerHTML = "<div><blockquote class='instagram-media' data-instgrm-permalink='https://www.instagram.com/p/CFB12345678/' data-instgrm-version='14' style='margin:auto; max-width:540px; width:100%;'></blockquote></div>";
-if(window.instgrm) window.instgrm.Embeds.process();
+// TikTok videos
+const tiktokVideos = [
+  "<blockquote class='tiktok-embed' cite='https://www.tiktok.com/@i.meed..money/video/7547346870369111316' data-video-id='7547346870369111316'><section><a target='_blank' title='@i.meed..money' href='https://www.tiktok.com/@i.meed..money?refer=embed'>@i.meed..money</a></section></blockquote>"
+];
+renderVideos("tiktok-grid", tiktokVideos, "tiktok");
 
-// Instagram grid videos
-fetch('instagram-videos.json')
-  .then(res => res.json())
-  .then(videos => {
-    const container = document.getElementById('instagram-grid');
-    videos.forEach(embedHtml => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = embedHtml;
-        container.appendChild(wrapper);
-    });
-    if(window.instgrm) window.instgrm.Embeds.process();
-  });
+// Instagram videos
+const instagramVideos = [
+  "<blockquote class='instagram-media' data-instgrm-permalink='https://www.instagram.com/p/CFB12345678/' data-instgrm-version='14'></blockquote>"
+];
+renderVideos("instagram-grid", instagramVideos, "instagram");
 </script>
 
 </body>
