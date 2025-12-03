@@ -5,185 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GlobalVidHub</title>
 <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    margin: 0;
     font-family: Poppins, sans-serif;
     background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d);
     color: white;
 }
 
-/* HEADER */
+/* Header */
 header {
     width: 100%;
-    padding: 20px 40px;
+    padding: 15px 20px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 50px;
-    position: sticky;
-    top: 0;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
     z-index: 1000;
 }
+.logo { font-size: 24px; font-weight: bold; color: #00aaff; }
+nav { display: flex; gap: 15px; }
+nav a { text-decoration: none; color: white; font-weight: 500; }
+nav a:hover { color: #00aaff; }
+.nav-toggle { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+.nav-toggle div { width: 25px; height: 3px; background: white; }
 
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #00aaff;
-}
+/* Sections */
+section { padding: 40px 20px; }
+h2 { font-size: 28px; margin-bottom: 20px; border-left: 5px solid #00aaff; padding-left: 10px; }
 
-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-}
+/* Featured video */
+.feature-video { width: 100%; border-radius: 12px; margin-bottom: 20px; height: 300px; }
 
-nav a:hover {
-    color: #00aaff;
-}
-
-/* SECTIONS */
-section {
-    padding: 60px 50px;
-}
-
-h2 {
-    font-size: 32px;
-    margin-bottom: 25px;
-    border-left: 5px solid #00aaff;
-    padding-left: 10px;
-}
-
-/* VIDEO GRID */
-.feature-video {
-    width: 100%;
-    height: 400px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-}
-
+/* Small video grids */
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
 }
+iframe, .video-grid blockquote { width: 100%; border-radius: 10px; }
 
-iframe {
-    width: 100%;
-    height: 180px;
-    border-radius: 10px;
-    border: none;
-}
-
-/* DARK/LIGHT MODE */
-.dark-mode { background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d); color: white; }
-.light-mode { background: #f5f5f5; color: #222; }
-
-.mode-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background: #00aaff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    nav { display: none; flex-direction: column; background: rgba(0,0,0,0.9); position: absolute; top: 60px; right: 0; width: 200px; padding: 15px; border-radius: 8px; }
+    nav.show { display: flex; }
+    .nav-toggle { display: flex; }
+    h2 { font-size: 24px; }
+    .feature-video { height: 200px; }
+    .video-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
-<body class="dark-mode">
-
-<button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
+<body>
 
 <header>
     <div class="logo">GlobalVidHub</div>
-    <nav>
+    <div class="nav-toggle" onclick="toggleNav()"><div></div><div></div><div></div></div>
+    <nav id="navbar">
         <a href="#home">Home</a>
-        <a href="#youtube">YouTube Videos</a>
-        <a href="#tiktok">TikTok Videos</a>
-        <a href="#instagram">Instagram Videos</a>
+        <a href="#youtube">YouTube</a>
+        <a href="#tiktok">TikTok</a>
+        <a href="#instagram">Instagram</a>
     </nav>
 </header>
 
-<!-- HOME -->
 <section id="home">
     <h2>Welcome to GlobalVidHub</h2>
     <p>Your daily hub for trending videos across YouTube, TikTok, and Instagram.</p>
 </section>
 
-<!-- YOUTUBE FEATURE -->
+<!-- YouTube Section -->
 <section id="youtube">
-    <h2>YouTube</h2>
+    <h2>YouTube Videos</h2>
     <iframe class="feature-video" src="https://www.youtube.com/embed/0t1_u7Y30i0" allowfullscreen></iframe>
     <div class="video-grid">
         <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/r9cqpcy6IwE" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/lcK3GUrt7Ww" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/RNRkN0wS0VI" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/L9c1HcpIcHc" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/0VDK7tLYsGY" allowfullscreen></iframe>
     </div>
 </section>
 
-<!-- TIKTOK VIDEOS -->
+<!-- TikTok Section -->
 <section id="tiktok">
     <h2>Trending TikTok Videos</h2>
+    <div class="feature-video" id="tiktok-feature"></div>
     <div class="video-grid" id="tiktok-grid"></div>
 </section>
 
-<!-- INSTAGRAM VIDEOS -->
+<!-- Instagram Section -->
 <section id="instagram">
     <h2>Popular Instagram Videos</h2>
+    <div class="feature-video" id="instagram-feature"></div>
     <div class="video-grid" id="instagram-grid"></div>
 </section>
 
-<!-- SCRIPTS -->
 <script async src="https://www.tiktok.com/embed.js"></script>
 <script async src="https://www.instagram.com/embed.js"></script>
 <script>
-function toggleMode() {
-    const body = document.body;
-    if(body.classList.contains('dark-mode')){
-        body.classList.remove('dark-mode');
-        body.classList.add('light-mode');
-    } else {
-        body.classList.remove('light-mode');
-        body.classList.add('dark-mode');
-    }
-}
+// Mobile nav toggle
+function toggleNav() { document.getElementById('navbar').classList.toggle('show'); }
 
-// Load TikTok embeds dynamically
+// Example Featured TikTok
+document.getElementById('tiktok-feature').innerHTML = "<blockquote class='tiktok-embed' cite='https://www.tiktok.com/@i.meed..money/video/7547346870369111316' data-video-id='7547346870369111316' style='max-width: 605px;min-width: 325px;'><section><a target='_blank' title='@i.meed..money' href='https://www.tiktok.com/@i.meed..money?refer=embed'>@i.meed..money</a> <p></p> <a target='_blank' title='♬ sonido original - Rine Lucia' href='https://www.tiktok.com/music/sonido-original-7378904931535473424?refer=embed'>♬ sonido original - Rine Lucia</a></section></blockquote>";
+if(window.tiktokEmbedInit) window.tiktokEmbedInit();
+
+// Load TikTok grid videos
 fetch('tiktok-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('tiktok-grid');
     videos.forEach(embedHtml => {
-      const div = document.createElement('div');
-      div.innerHTML = embedHtml;
-      container.appendChild(div);
+      const div = document.createElement('div'); div.innerHTML = embedHtml; container.appendChild(div);
     });
-    if (window.tiktokEmbedInit) window.tiktokEmbedInit();
+    if(window.tiktokEmbedInit) window.tiktokEmbedInit();
   });
 
-// Load Instagram embeds dynamically
+// Example Featured Instagram
+document.getElementById('instagram-feature').innerHTML = "<blockquote class='instagram-media' data-instgrm-permalink='https://www.instagram.com/p/CFB12345678/' data-instgrm-version='14' style='background:#FFF; margin:1px; max-width:540px; width:100%;'></blockquote>";
+if(window.instgrm) window.instgrm.Embeds.process();
+
+// Load Instagram grid videos
 fetch('instagram-videos.json')
   .then(res => res.json())
   .then(videos => {
     const container = document.getElementById('instagram-grid');
     videos.forEach(embedHtml => {
-      const div = document.createElement('div');
-      div.innerHTML = embedHtml;
-      container.appendChild(div);
+      const div = document.createElement('div'); div.innerHTML = embedHtml; container.appendChild(div);
     });
-    // Important: initialize Instagram embeds after adding them
-    if (window.instgrm) window.instgrm.Embeds.process();
+    if(window.instgrm) window.instgrm.Embeds.process();
   });
 </script>
 
