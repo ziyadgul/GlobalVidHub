@@ -7,8 +7,8 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+            font-family: Poppins, sans-serif;
+            background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d);
             color: white;
         }
 
@@ -30,7 +30,7 @@
         .logo {
             font-size: 28px;
             font-weight: bold;
-            color: #ff3434;
+            color: #00aaff;
         }
 
         nav a {
@@ -41,7 +41,7 @@
         }
 
         nav a:hover {
-            color: #ff3434;
+            color: #00aaff;
         }
 
         /* SECTIONS */
@@ -52,7 +52,7 @@
         h2 {
             font-size: 32px;
             margin-bottom: 25px;
-            border-left: 5px solid #ff3434;
+            border-left: 5px solid #00aaff;
             padding-left: 10px;
         }
 
@@ -69,9 +69,28 @@
             border-radius: 10px;
             border: none;
         }
+
+        /* DARK/LIGHT MODE */
+        .dark-mode { background: linear-gradient(135deg, #0d0d0d, #001a33, #00334d); color: white; }
+        .light-mode { background: #f5f5f5; color: #222; }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
-<body>
+<body class="dark-mode">
+
+    <button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
 
     <!-- HEADER -->
     <header>
@@ -93,8 +112,52 @@
     <!-- YOUTUBE TRAVEL VLOGS -->
     <section id="youtube">
         <h2>Top Travel Vlogs</h2>
-
         <div class="video-grid">
+            <iframe src="https://www.youtube.com/embed/0t1_u7Y30i0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/bpOBVfTDa_M" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/csZzJ8pXK0M" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/8Z77SKn1hpo" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/NuXBcgukV2w" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/r9cqpcy6IwE" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/lcK3GUrt7Ww" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/RNRkN0wS0VI" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/L9c1HcpIcHc" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/0VDK7tLYsGY" allowfullscreen></iframe>
+        </div>
+    </section>
 
-            <!-- 10 Travel Vlog Videos -->
-            <iframe src="https://www.youtube.com/embed/0t1_u7Y30i0"_
+    <!-- TIKTOK VIDEOS -->
+    <section id="tiktok">
+        <h2>Trending TikTok Videos</h2>
+        <div class="video-grid">
+            <iframe src="https://www.tiktok.com/embed/7208949120347599365" allowfullscreen></iframe>
+            <iframe src="https://www.tiktok.com/embed/7210149738455294470" allowfullscreen></iframe>
+            <iframe src="https://www.tiktok.com/embed/7207845912345678901" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM VIDEOS -->
+    <section id="instagram">
+        <h2>Popular Instagram Videos</h2>
+        <div class="video-grid">
+            <iframe src="https://www.instagram.com/p/CFB12345678/embed" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/p/CFB87654321/embed" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/p/CFB11223344/embed" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <script>
+        function toggleMode() {
+            const body = document.body;
+            if(body.classList.contains('dark-mode')){
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            }
+        }
+    </script>
+
+</body>
+</html>
